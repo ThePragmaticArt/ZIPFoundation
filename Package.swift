@@ -9,7 +9,7 @@ let targets: [Target] = [
 #else
 let targets: [Target] = [
     .systemLibrary(name: "CZLib", pkgConfig: "zlib", providers: [.brew(["zlib"]), .apt(["zlib"])]),
-    .target(name: "ZIPFoundation", dependencies: ["CZLib"]),
+    .target(name: "ZIPFoundation", target: .dynamic, dependencies: ["CZLib"]),
     .testTarget(name: "ZIPFoundationTests", dependencies: ["ZIPFoundation"])
 ]
 #endif
@@ -20,7 +20,7 @@ let package = Package(
         .macOS(.v10_11), .iOS(.v11), .tvOS(.v9), .watchOS(.v2)
     ],
     products: [
-        .library(name: "ZIPFoundation", targets: ["ZIPFoundation"])
+        .library(name: "ZIPFoundation", type: .dynamic, targets: ["ZIPFoundation"])
     ],
     targets: targets,
     swiftLanguageVersions: [.v5]
